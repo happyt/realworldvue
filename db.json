@@ -222,6 +222,24 @@
       "date": "2020-04-24T12:43:00.000Z",
       "time": "14:00",
       "attendees": []
+    },
+    {
+      "id": 8271908,
+      "user": {
+        "id": "abc123",
+        "name": "Adam Jahr"
+      },
+      "category": "food",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam Jahr"
+      },
+      "title": "rtetrte",
+      "description": "eeee",
+      "location": "wwww",
+      "date": "2020-04-24T12:46:00.000Z",
+      "time": "11:00",
+      "attendees": []
     }
   ]
 }
