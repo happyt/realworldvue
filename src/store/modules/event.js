@@ -23,24 +23,40 @@ export const mutations = {
   }
 }
 export const actions = {
-  createEvent({ commit, rootState }, event) {
-    console.log('User is ' + rootState.user.user.name)
-
-    return EventService.postEvent(event).then(() => {
-      commit('ADD_EVENT', event)
-    })
+  createEvent({ commit, dispatch }, event) {
+    return EventService.postEvent(event)
+      .then(() => {
+        commit('ADD_EVENT', event)
+        const notification = {
+          type: 'success',
+          message: 'Event created!'
+        }
+        dispatch('notification/add', notification, { root: true })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'Problem creating event: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
+        throw error
+      })
   },
-  fetchEvents({ commit }, { perPage, page }) {
+  fetchEvents({ commit, dispatch }, { perPage, page }) {
     EventService.getEvents(perPage, page)
       .then(response => {
         commit('SET_EVENTS_TOTAL', parseInt(response.headers['x-total-count']))
         commit('SET_EVENTS', response.data)
       })
       .catch(error => {
-        console.log('There was an error:' + error.response)
+        const notification = {
+          type: 'error',
+          message: 'Problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
       })
   },
-  fetchEvent({ commit, getters }, id) {
+  fetchEvent({ commit, getters, dispatch }, id) {
     var event = getters.getEventById(id)
 
     if (event) {
@@ -51,7 +67,12 @@ export const actions = {
           commit('SET_EVENT', response.data)
         })
         .catch(error => {
-          console.log('There was an error:', error.response)
+          console.log('Error Event')
+          const notification = {
+            type: 'error',
+            message: 'Problem fetching event: ' + error.message
+          }
+          dispatch('notification/add', notification, { root: true })
         })
     }
   }
