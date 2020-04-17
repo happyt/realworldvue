@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Events listing {{ $route.fullPath }}</h1>
+    <h1>Events listing</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <template v-if="page != 1">
       <router-link
@@ -10,8 +10,9 @@
         Prev Page
       </router-link>
     </template>
-    {{ page }}
+    {{ page }} from {{ maxPage }}
     <router-link
+      v-if="hasNextPage"
       :to="{ name: 'event-list', query: { page: page + 1 } }"
       rel="next"
     >
@@ -39,7 +40,13 @@ export default {
     page() {
       return parseInt(this.$route.query.page) || 1
     },
-    ...mapState(['events'])
+    maxPage() {
+      return Math.round(this.eventsTotal / 3)
+    },
+    hasNextPage() {
+      return this.eventsTotal > this.page * 3
+    },
+    ...mapState(['events', 'eventsTotal'])
   }
 }
 </script>

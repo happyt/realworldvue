@@ -27,6 +27,9 @@ export default new Vuex.Store({
     SET_EVENTS(state, events) {
       state.events = events
     },
+    SET_EVENTS_TOTAL(state, eventsTotal) {
+      state.eventsTotal = eventsTotal
+    },
     SET_EVENT(state, event) {
       state.event = event
     }
@@ -40,7 +43,10 @@ export default new Vuex.Store({
     fetchEvents({ commit }, { perPage, page }) {
       EventService.getEvents(perPage, page)
         .then(response => {
-          console.log('Total events are: ' + response.headers['x-total-count'])
+          commit(
+            'SET_EVENTS_TOTAL',
+            parseInt(response.headers['x-total-count'])
+          )
           commit('SET_EVENTS', response.data)
         })
         .catch(error => {
