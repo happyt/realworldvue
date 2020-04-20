@@ -22,12 +22,12 @@
 export default {
   inheritAttrs: false,
   props: {
-    options: { type: Array, required: true },
-    label: {
-      type: String,
-      default: ''
+    options: {
+      type: Array,
+      required: true
     },
-    value: [String, Number]
+    value: [String, Number],
+    label: String
   },
   methods: {
     updateValue(event) {

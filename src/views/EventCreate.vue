@@ -9,6 +9,7 @@
         :class="{ error: $v.event.category.$error }"
         @blur="$v.event.category.$touch()"
       />
+
       <template v-if="$v.event.category.$error">
         <p v-if="!$v.event.category.required" class="errorMessage">
           Category is required.
