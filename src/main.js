@@ -6,6 +6,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'nprogress/nprogress.css'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
+
+Vue.config.productionTip = false
 
 const requireComponent = require.context(
   // The relative path of the components folder
