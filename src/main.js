@@ -27,6 +27,7 @@ requireComponent.keys().forEach(fileName => {
 
   // Get PascalCase name of component
   const componentName = upperFirst(
+    //    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
     camelCase(
       // Gets the file name regardless of folder depth
       fileName
@@ -45,8 +46,6 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   )
 })
-
-Vue.config.productionTip = false
 
 new Vue({
   router,

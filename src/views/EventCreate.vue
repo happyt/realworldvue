@@ -9,7 +9,6 @@
         :class="{ error: $v.event.category.$error }"
         @blur="$v.event.category.$touch()"
       />
-
       <template v-if="$v.event.category.$error">
         <p v-if="!$v.event.category.required" class="errorMessage">
           Category is required.
@@ -19,27 +18,30 @@
       <h3>Name & describe your event</h3>
       <BaseInput
         label="Title"
-        placeholder="Title"
+        v-model="event.title"
         type="text"
+        placeholder="Title"
         class="field"
         :class="{ error: $v.event.title.$error }"
-        v-model.trim="event.title"
         @blur="$v.event.title.$touch()"
       />
+
       <template v-if="$v.event.title.$error">
         <p v-if="!$v.event.title.required" class="errorMessage">
           Title is required.
         </p>
       </template>
+
       <BaseInput
         label="Description"
+        v-model="event.description"
         type="text"
         placeholder="Description"
         class="field"
         :class="{ error: $v.event.description.$error }"
-        v-model.trim="event.description"
         @blur="$v.event.description.$touch()"
       />
+
       <template v-if="$v.event.description.$error">
         <p v-if="!$v.event.description.required" class="errorMessage">
           Description is required.
@@ -49,13 +51,14 @@
       <h3>Where is your event?</h3>
       <BaseInput
         label="Location"
-        v-model.trim="event.location"
+        v-model="event.location"
         type="text"
         placeholder="Location"
         class="field"
         :class="{ error: $v.event.location.$error }"
         @blur="$v.event.location.$touch()"
       />
+
       <template v-if="$v.event.location.$error">
         <p v-if="!$v.event.location.required" class="errorMessage">
           Location is required.
@@ -63,15 +66,17 @@
       </template>
 
       <h3>When is your event?</h3>
+
       <div class="field">
         <label>Date</label>
         <datepicker
-          placeholder="Select a date"
           v-model="event.date"
-          @opened="$v.event.date.$touch()"
+          placeholder="Select a date"
           :input-class="{ error: $v.event.date.$error }"
+          @opened="$v.event.date.$touch()"
         />
       </div>
+
       <template v-if="$v.event.date.$error">
         <p v-if="!$v.event.date.required" class="errorMessage">
           Date is required.
@@ -86,6 +91,7 @@
         :class="{ error: $v.event.time.$error }"
         @blur="$v.event.time.$touch()"
       />
+
       <template v-if="$v.event.time.$error">
         <p v-if="!$v.event.time.required" class="errorMessage">
           Time is required.
@@ -109,6 +115,7 @@
 import Datepicker from 'vuejs-datepicker'
 import NProgress from 'nprogress'
 import { required } from 'vuelidate/lib/validators'
+
 export default {
   components: {
     Datepicker
@@ -156,6 +163,7 @@ export default {
     createFreshEventObject() {
       const user = this.$store.state.user.user
       const id = Math.floor(Math.random() * 10000000)
+
       return {
         id: id,
         user: user,
