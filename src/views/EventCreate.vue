@@ -2,6 +2,19 @@
   <div>
     <h1>Create an Event</h1>
     <form @submit.prevent="createEvent">
+      <BaseSelection
+        label="Select one..."
+        :options="categories"
+        v-model="event.category2"
+        :class="{ error: $v.event.category2.$error }"
+        @blur="$v.event.category2.$touch()"
+      />
+      <template v-if="$v.event.category2.$error">
+        <p v-if="!$v.event.category2.required" class="errorMessage">
+          Category2 is required.
+        </p>
+      </template>
+
       <BaseSelect
         label="Select a category"
         :options="categories"
@@ -134,6 +147,7 @@ export default {
   validations: {
     event: {
       category: { required },
+      category2: { required },
       title: { required },
       description: { required },
       location: { required },
@@ -168,6 +182,7 @@ export default {
         id: id,
         user: user,
         category: '',
+        category2: '',
         organizer: user,
         title: '',
         description: '',
